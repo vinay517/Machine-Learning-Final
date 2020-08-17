@@ -1,0 +1,63 @@
+[System]
+Name='PredictingHeartDisease'
+Type='mamdani'
+Version=2.0
+NumInputs=4
+NumOutputs=1
+NumRules=9
+AndMethod='prod'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='bisector'
+
+[Input1]
+Name='ChestPainType'
+Range=[1 5]
+NumMFs=4
+MF1='stable':'trimf',[1 1.5 1.99]
+MF2='unstable':'trimf',[2 2.5 2.99]
+MF3='variant':'trimf',[3 3.5 3.99]
+MF4='microvascular':'trimf',[4 4.5 5]
+
+[Input2]
+Name='ElectroCardiographicResults'
+Range=[1 4]
+NumMFs=3
+MF1='normal':'trimf',[1 1.5 1.99]
+MF2='Abnormalslowrate':'trimf',[2 2.5 2.99]
+MF3='Abnormalfastirregular':'trimf',[3 3.5 4]
+
+[Input3]
+Name='FastinBloodSugar'
+Range=[0 2]
+NumMFs=2
+MF1='normal':'trimf',[0 0.5 0.99]
+MF2='high':'trimf',[1 1.5 2]
+
+[Input4]
+Name='FlourscopyResult'
+Range=[0 4]
+NumMFs=4
+MF1='no__blocked__arteries':'trimf',[0.1 0.5 0.99]
+MF2='one__blocked__artery':'trimf',[1 1.5 1.99]
+MF3='two__blocked__artery':'trimf',[2 2.5 2.99]
+MF4='three__blocked__artery':'trimf',[3 3.5 4]
+
+[Output1]
+Name='HeartDisease'
+Range=[0 2]
+NumMFs=2
+MF1='absent':'trimf',[0.1 0.7 1.2]
+MF2='present':'trimf',[1.21 1.7 2]
+
+[Rules]
+1 1 1 1, 1 (1) : 1
+2 2 1 2, 1 (1) : 1
+4 3 2 4, 2 (1) : 1
+4 3 2 4, 2 (1) : 2
+3 3 2 4, 2 (1) : 2
+4 2 2 4, 2 (1) : 2
+3 1 1 3, 1 (1) : 2
+2 3 2 4, 2 (1) : 1
+0 2 1 2, 1 (1) : 1
